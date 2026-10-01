@@ -1,6 +1,13 @@
 # urology_binn
 
-离散时间 MAPS Teacher–Student 风险预测模型代码。编码器是基于 Reactome 通路的 BINN；Teacher 输入 NMR 代谢组 + Olink 蛋白组 + PRS，Student 输入 NMR + PRS。
+MAPS Teacher–Student 风险预测模型代码。编码器是基于 Reactome 通路的 BINN；Teacher 输入 NMR 代谢组 + Olink 蛋白组 + PRS，Student 输入 NMR + PRS。
+
+## 两个模型版本
+
+- **冻结版 MAPS / Student-MAPS**：离散时间生存模型，随访期分为 10 个一年区间，输出 1–10 年各年的累计风险（`maps-research run-maps`）。
+- **改进版 Teacher / Student**：BINN 结构相同，但**不是离散时间模型**，而是“10 年内是否发病”的二分类（BCE），只输出 10 年风险；Teacher 另加两阶段稀疏直连路径，两者均为 5 个训练种子平均（`scripts/repeated_split_binn_improvements.py` 等）。本队列未发病者均随访满 10 年，10 年标签不受删失影响。
+
+需要逐年风险时使用冻结版。运行步骤见 `README_交付说明.md`。
 
 ## 目录
 

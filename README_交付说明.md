@@ -1,4 +1,4 @@
-# 离散时间 MAPS Teacher–Student 建模代码交付包
+# MAPS Teacher–Student 建模代码交付包
 
 本代码包用于代码审阅与在获授权的数据环境中复现。当前冻结方案为 6 层 Reactome-informed BINN、10 个一年期离散生存区间、Teacher-MAPS 与配对蒸馏 Student-MAPS（训练 seed 7）。
 
@@ -39,8 +39,8 @@ maps-research run-maps --config <analysis_config.toml> --seed 7 --output <output
 
 在冻结 seed 7 方案之外，新增以下改进方案及其评估脚本（冻结配置与冻结模型行为不变）。评估结果见内部报告 `16_optimization_report_20260926.md`，不随公开仓库发布。
 
-- **改进版 Teacher**：BINN 结构不变，训练目标改为 10 年内是否发病，加两阶段稀疏直连路径，5 个训练种子取平均。只输出 10 年风险，逐年风险仍用冻结 Teacher。
-- **改进版 Student**（NMR + PRS）：BINN，10 年目标，不蒸馏，5 个训练种子取平均。
+- **改进版 Teacher**：BINN 结构不变，但不再是离散时间生存模型：训练目标改为“10 年内是否发病”的二分类（BCE），只输出 10 年风险（本队列未发病者均随访满 10 年，10 年标签不受删失影响）；另加两阶段稀疏直连路径，5 个训练种子取平均。需要逐年风险时仍用冻结 Teacher。
+- **改进版 Student**（NMR + PRS）：BINN，同样是 10 年二分类（非离散时间），不蒸馏，5 个训练种子取平均。
 
 复现脚本（在 `2_internal_python_package/scripts/` 下运行，结果写入本目录的 `14_repeated_split_validation/`、`15_external_validation_wales/`）：
 

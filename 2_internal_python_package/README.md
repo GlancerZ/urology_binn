@@ -61,7 +61,7 @@ python scripts/compare_mixture_cure_development.py --seeds 1 2 3 4 5            
 
 ## 重复划分评估、改进方案与外部验证（2026-09）
 
-`scripts/` 下的 `repeated_split_*.py`、`summarize_teacher_improvements.py`、`summarize_students.py`、`external_validation_wales.py` 用于 20 次重复随机划分评估、ML/深度学习基线、改进版 Teacher/Student 及 Wales 外部验证，运行顺序见上级目录 `README_交付说明.md`。
+`scripts/` 下的 `repeated_split_*.py`、`summarize_teacher_improvements.py`、`summarize_students.py`、`external_validation_wales.py` 用于 20 次重复随机划分评估、ML/深度学习基线、改进版 Teacher/Student（“10 年内是否发病”的二分类，不是离散时间模型）及 Wales 外部验证，运行顺序见上级目录 `README_交付说明.md`。
 
 ## 尚待后续数据到位后执行
 
