@@ -1,0 +1,11 @@
+# 2026-09/10 在 Linux + Python 3.11.15 下实际运行并验证过的版本（训练、重复划分、Wales 外部验证、单元测试）
+torch==2.5.1
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.14.1
+scikit-learn==1.5.2
+networkx==3.6.1
+matplotlib==3.11.1
+# 传统 ML 基线
+xgboost==3.2.0
+lightgbm==4.7.0

@@ -1,0 +1,26 @@
+# 公开仓库：只跟踪代码和使用说明。
+# 数据、分割表、逐人预测、实验结果、结果报告、模型选择记录和权重一律不提交；
+# 本目录同时存放受试者级数据，切勿用 git add -f 强制添加被忽略的文件。
+/*
+!/.gitignore
+!/README.md
+!/README_交付说明.md
+!/2_internal_python_package/
+!/3_frozen_configs/
+!/BINN.main/
+!/feature_lists/
+/3_frozen_configs/FINAL_MODEL_SELECTION_*
+
+# 即使出现在上述目录中也不提交
+__pycache__/
+*.py[cod]
+*.egg-info/
+.mplconfig/
+*.pt
+*.pth
+*.npz
+*.npy
+*.pkl
+*.joblib
+*.xlsx
+*prediction*.csv

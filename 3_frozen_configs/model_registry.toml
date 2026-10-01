@@ -1,0 +1,34 @@
+[teacher_maps]
+enabled = true
+family = "reactome_binn"
+inputs = ["NMR", "Olink", "PRS"]
+pathway_layers = 6
+prs_fusion = "after_H6"
+distillation = "none"
+
+[student_maps_distilled]
+enabled = true
+family = "reactome_binn"
+inputs = ["NMR", "PRS"]
+pathway_layers = 6
+prs_fusion = "after_H6"
+distillation = "teacher_hazard_logits"
+
+[student_maps_nodistill]
+enabled = true
+family = "reactome_binn"
+inputs = ["NMR", "PRS"]
+pathway_layers = 6
+prs_fusion = "after_H6"
+distillation = "none"
+
+[traditional_ml]
+enabled = true
+algorithms = ["xgboost", "lightgbm", "random_forest", "logistic_regression", "elastic_net", "svm_rbf"]
+feature_sets = ["nmr", "prs", "nmr_prs", "nmr_olink_prs"]
+
+[clinical_models]
+enabled = false
+reason = "clinical_covariate_table_pending"
+models = ["base", "lifestyle", "lifestyle_clinical", "lifestyle_clinical_prs"]
+
