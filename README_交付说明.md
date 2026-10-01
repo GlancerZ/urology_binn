@@ -46,8 +46,10 @@ maps-research run-maps --config <analysis_config.toml> --seed 7 --output <output
 
 1. `repeated_split_validation.py`：冻结 Teacher 在 20 次重复划分上的评估，以及 KLK3 / KLK3+PRS 参照模型；
 2. `repeated_split_ml_baselines.py`、`repeated_split_xgboost_tuned.py`、`repeated_split_deep_baselines.py`：传统 ML、调参 XGBoost、通用深度学习基线；
-3. 先运行 `repeated_split_binn_improvements.py --variants binary_direct_l1_1e-2` 生成第一阶段特征选择表 `14_repeated_split_validation/binn_improvements/binary_direct_l1_1e-2_seed7_by_split.csv`，再运行 `--variants binary_relaxed --training-seeds 7 1 2 3 4` 得到改进版 Teacher（`repeated_split_students.py` 也读取这张表）；
+3. `repeated_split_binn_improvements.py`：先运行 `--variants binary_direct_l1_1e-2` 生成第一阶段特征选择表 `14_repeated_split_validation/binn_improvements/binary_direct_l1_1e-2_seed7_by_split.csv`（第 4、5 步也读取这张表），再分别运行 `--variants binary --training-seeds 7 1 2 3 4` 与 `--variants binary_relaxed --training-seeds 7 1 2 3 4`，最后运行 `summarize_teacher_improvements.py`（需第 1、2 步结果），得到 5 种子集成、按 val10 log-loss 选定的方案，以及与冻结 Teacher、KLK3+PRS、XGBoost 的配对比较；
 4. `repeated_split_students.py` 与 `summarize_students.py`：Student 各变体与比较；
 5. `external_validation_wales.py`（`--part teacher` / `--part student`）：Wales 外部验证。
+
+按 2026-09 的方式在两张 RTX 4090 上并行运行，第 1–5 步合计约 3–4 小时。训练是确定性的：同一环境下重跑，BINN Teacher/Student、XGBoost、LightGBM 的逐人预测与原结果逐位一致。唯一例外是 NMR+PRS 逻辑回归基线：特征高度共线，lbfgs 的解随数值库（OpenBLAS）线程数变化，重跑时预测值可能有 0.01 以内的差别；需要完全一致时请固定线程数（如 `OPENBLAS_NUM_THREADS`）。
 
 包内新增选项均默认关闭：BINN `residual_width`（默认 1）、训练设置 `decoupled_weight_decay`（默认 False）。`tests/` 中除需要分割表数据的一项外，其余测试可在无数据环境下运行。
